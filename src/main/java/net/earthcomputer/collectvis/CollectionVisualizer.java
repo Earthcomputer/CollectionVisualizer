@@ -1,9 +1,6 @@
 package net.earthcomputer.collectvis;
 
-import net.earthcomputer.collectvis.visualizers.TreeMapVisualizer;
-import net.earthcomputer.collectvis.visualizers.TreeSetVisualizer;
-import net.earthcomputer.collectvis.visualizers.VerticalListVisualizer;
-import net.earthcomputer.collectvis.visualizers.Visualizer;
+import net.earthcomputer.collectvis.visualizers.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;

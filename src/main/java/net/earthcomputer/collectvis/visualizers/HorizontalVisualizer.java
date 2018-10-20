@@ -13,7 +13,7 @@ public class HorizontalVisualizer<T> extends Visualizer<Iterable<T>> {
 
     private Supplier<? extends Visualizer<? super T>> visualizerCreator;
     private float alignment;
-    private List<Visualizer<? super T>> visualizers = new ArrayList<>();
+    protected List<Visualizer<? super T>> visualizers = new ArrayList<>();
     private Dimension size;
 
     public HorizontalVisualizer(Supplier<? extends Visualizer<? super T>> visualizerCreator) {
