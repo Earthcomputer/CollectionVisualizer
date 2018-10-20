@@ -1,5 +1,7 @@
 package net.earthcomputer.collectvis;
 
+import net.earthcomputer.collectvis.visualizers.ICollectionVisualizer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -23,9 +25,10 @@ public class CollectVisViewport<T extends Collection<?>> extends JComponent impl
 
     @Override
     public void paintComponent(Graphics g) {
-        visualizer.layout(collection);
+        Graphics2D g2 = (Graphics2D) g;
+        visualizer.layout(collection, g2);
 
-        visualizer.draw((Graphics2D) g);
+        visualizer.draw(g2, 0, 0);
 
         Dimension size = visualizer.getSize();
         if (!size.equals(getPreferredSize())) {

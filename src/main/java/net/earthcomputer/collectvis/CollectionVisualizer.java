@@ -1,5 +1,7 @@
 package net.earthcomputer.collectvis;
 
+import net.earthcomputer.collectvis.visualizers.ICollectionVisualizer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
