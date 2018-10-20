@@ -1,13 +1,12 @@
 package net.earthcomputer.collectvis.visualizers;
 
-import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.function.Supplier;
 
-public class TreeSetVisualizer<E> extends Visualizer<TreeSet<E>> {
+public class TreeSetVisualizer<E> extends TransformingVisualizer<TreeSet<E>, TreeMap<E, Object>> {
 
     private static final Field BACKING_MAP_FIELD;
     static {
@@ -29,42 +28,7 @@ public class TreeSetVisualizer<E> extends Visualizer<TreeSet<E>> {
         }
     }
 
-    private TreeMapVisualizer<E, Object> mapVisualizer;
-
     public TreeSetVisualizer(Supplier<? extends Visualizer<? super E>> visualizerCreator) {
-        mapVisualizer = new TreeMapVisualizer<>(() -> {
-            Visualizer<? super E> vis = visualizerCreator.get();
-            return new Visualizer<Map.Entry<E, Object>>() {
-                @Override
-                public void layout(Map.Entry<E, Object> entry, Graphics2D g) {
-                    vis.layout(entry.getKey(), g);
-                }
-
-                @Override
-                public Dimension getContentSize() {
-                    return vis.getTotalSize();
-                }
-
-                @Override
-                public void drawContent(Graphics2D g, int x, int y) {
-                    vis.draw(g, x, y);
-                }
-            };
-        });
-    }
-
-    @Override
-    public void layout(TreeSet<E> set, Graphics2D g) {
-        mapVisualizer.layout(getBackingMap(set), g);
-    }
-
-    @Override
-    public Dimension getContentSize() {
-        return mapVisualizer.getContentSize();
-    }
-
-    @Override
-    public void drawContent(Graphics2D g, int x, int y) {
-        mapVisualizer.drawContent(g, x, y);
+        super(TreeSetVisualizer::getBackingMap, new TreeMapVisualizer<>(() -> new TransformingVisualizer<>(Map.Entry::getKey, visualizerCreator.get())));
     }
 }
