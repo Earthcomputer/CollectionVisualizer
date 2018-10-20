@@ -14,7 +14,7 @@ public class VerticalVisualizer<T> extends Visualizer<Iterable<T>> {
 
     private Supplier<? extends Visualizer<? super T>> visualizerCreator;
     private float alignment;
-    private List<Visualizer<? super T>> visualizers = new ArrayList<>();
+    protected List<Visualizer<? super T>> visualizers = new ArrayList<>();
     private Dimension size;
 
     public VerticalVisualizer(Supplier<? extends Visualizer<? super T>> visualizerCreator) {

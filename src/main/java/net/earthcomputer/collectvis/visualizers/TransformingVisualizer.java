@@ -5,10 +5,10 @@ import java.util.function.Function;
 
 public class TransformingVisualizer<A, B> extends Visualizer<A> {
 
-    private Function<A, B> transformer;
-    private Visualizer<B> delegate;
+    private Function<? super A, ? extends B> transformer;
+    private Visualizer<? super B> delegate;
 
-    public TransformingVisualizer(Function<A, B> transformer, Visualizer<B> delegate) {
+    public TransformingVisualizer(Function<? super A, ? extends B> transformer, Visualizer<? super B> delegate) {
         this.transformer = transformer;
         this.delegate = delegate;
     }
@@ -20,11 +20,11 @@ public class TransformingVisualizer<A, B> extends Visualizer<A> {
 
     @Override
     public Dimension getContentSize() {
-        return delegate.getContentSize();
+        return delegate.getTotalSize();
     }
 
     @Override
     public void drawContent(Graphics2D g, int x, int y) {
-        delegate.drawContent(g, x, y);
+        delegate.draw(g, x, y);
     }
 }
