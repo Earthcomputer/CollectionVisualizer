@@ -1,13 +1,14 @@
 package net.earthcomputer.collectvis;
 
-import net.earthcomputer.collectvis.visualizers.ToStringSingletonVisualizer;
+import net.earthcomputer.collectvis.visualizers.ToStringVisualizer;
+import net.earthcomputer.collectvis.visualizers.VerticalVisualizer;
 
-import java.util.Collections;
+import java.util.Arrays;
 
 public class CollectVisTest {
 
     public static void main(String[] args) {
-        CollectionVisualizer.visualize(Collections.singletonList("Hello World!"), new ToStringSingletonVisualizer<>());
+        CollectionVisualizer.visualize(Arrays.asList("Hello", "World"), new VerticalVisualizer<>(ToStringVisualizer::new));
     }
 
 }

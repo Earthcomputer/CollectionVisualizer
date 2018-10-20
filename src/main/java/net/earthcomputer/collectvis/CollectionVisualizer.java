@@ -10,7 +10,7 @@ import java.util.Collection;
 
 public class CollectionVisualizer {
 
-    public static <T extends Collection<?>> void visualize(T collection, IVisualizer<T> visualizer) {
+    public static <T extends Collection<?>> void visualize(T collection, IVisualizer<? super T> visualizer) {
         JDialog dialog = new JDialog((Frame) null, "Collection Visualizer", true);
 
         {

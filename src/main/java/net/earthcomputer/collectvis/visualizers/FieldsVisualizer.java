@@ -5,20 +5,20 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-public class FieldSingletonVisualizer<T> implements IVisualizer<T> {
+public class FieldsVisualizer<T> implements IVisualizer<T> {
 
     private Field[] visualizedFields;
     private String[] displayedLines;
     private Dimension size;
 
-    public FieldSingletonVisualizer(Class<T> clazz) {
+    public FieldsVisualizer(Class<T> clazz) {
         visualizedFields = Arrays.stream(clazz.getDeclaredFields()).filter(field -> !Modifier.isStatic(field.getModifiers())).toArray(Field[]::new);
         for (Field field : visualizedFields)
             field.setAccessible(true);
         displayedLines = new String[visualizedFields.length];
     }
 
-    public FieldSingletonVisualizer(Class<T> clazz, String... visualizedFields) {
+    public FieldsVisualizer(Class<T> clazz, String... visualizedFields) {
         this.visualizedFields = new Field[visualizedFields.length];
         for (int i = 0; i < visualizedFields.length; i++) {
             try {

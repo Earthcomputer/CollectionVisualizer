@@ -12,9 +12,9 @@ public class CollectVisViewport<T> extends JComponent implements Scrollable, Mou
     private static final int MAX_UNIT_INCREMENT = 1;
 
     private T collection;
-    private IVisualizer<T> visualizer;
+    private IVisualizer<? super T> visualizer;
 
-    public CollectVisViewport(T collection, IVisualizer<T> visualizer) {
+    public CollectVisViewport(T collection, IVisualizer<? super T> visualizer) {
         this.collection = collection;
         this.visualizer = visualizer;
 
