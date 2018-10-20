@@ -10,7 +10,8 @@ import java.awt.event.KeyEvent;
 public class CollectionVisualizer {
 
     public static <T> void visualize(T collection, Visualizer<? super T> visualizer) {
-        JDialog dialog = new JDialog((Frame) null, "Collection Visualizer", true);
+        // If the first parameter is a Dialog, it shows it in the taskbar, but if it's a Frame it doesn't
+        JDialog dialog = new JDialog((Dialog) null, "Collection Visualizer", true);
 
         {
             JMenuBar menuBar = new JMenuBar();
