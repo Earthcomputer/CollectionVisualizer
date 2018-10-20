@@ -14,6 +14,22 @@ public abstract class Visualizer<T> {
         this.border = border;
     }
 
+    public int getTopAnchorX() {
+        return getTotalSize().width / 2;
+    }
+
+    public int getBottomAnchorX() {
+        return getTotalSize().width / 2;
+    }
+
+    public int getLeftAnchorY() {
+        return getTotalSize().height / 2;
+    }
+
+    public int getRightAnchorY() {
+        return getTotalSize().height / 2;
+    }
+
     public abstract void layout(T object, Graphics2D g);
 
     public Dimension getTotalSize() {

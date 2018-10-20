@@ -6,11 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.util.Collection;
 
 public class CollectionVisualizer {
 
-    public static <T extends Collection<?>> void visualize(T collection, Visualizer<? super T> visualizer) {
+    public static <T> void visualize(T collection, Visualizer<? super T> visualizer) {
         JDialog dialog = new JDialog((Frame) null, "Collection Visualizer", true);
 
         {
