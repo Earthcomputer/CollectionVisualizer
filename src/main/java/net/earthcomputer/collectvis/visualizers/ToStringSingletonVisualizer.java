@@ -2,7 +2,7 @@ package net.earthcomputer.collectvis.visualizers;
 
 import java.awt.*;
 
-public class ToStringSingletonVisualizer<T> extends SingletonVisualizer<T> {
+public class ToStringSingletonVisualizer<T> implements IVisualizer<T> {
 
     private String text;
     private Dimension size;

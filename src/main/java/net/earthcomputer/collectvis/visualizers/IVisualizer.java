@@ -1,11 +1,10 @@
 package net.earthcomputer.collectvis.visualizers;
 
 import java.awt.*;
-import java.util.Collection;
 
-public interface ICollectionVisualizer<T extends Collection<?>> {
+public interface IVisualizer<T> {
 
-    void layout(T collection, Graphics2D g);
+    void layout(T object, Graphics2D g);
 
     Dimension getSize();
 

@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-public class FieldSingletonVisualizer<T> extends SingletonVisualizer<T> {
+public class FieldSingletonVisualizer<T> implements IVisualizer<T> {
 
     private Field[] visualizedFields;
     private String[] displayedLines;

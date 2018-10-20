@@ -1,21 +1,20 @@
 package net.earthcomputer.collectvis;
 
-import net.earthcomputer.collectvis.visualizers.ICollectionVisualizer;
+import net.earthcomputer.collectvis.visualizers.IVisualizer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.Collection;
 
-public class CollectVisViewport<T extends Collection<?>> extends JComponent implements Scrollable, MouseMotionListener {
+public class CollectVisViewport<T> extends JComponent implements Scrollable, MouseMotionListener {
 
     private static final int MAX_UNIT_INCREMENT = 1;
 
     private T collection;
-    private ICollectionVisualizer<T> visualizer;
+    private IVisualizer<T> visualizer;
 
-    public CollectVisViewport(T collection, ICollectionVisualizer<T> visualizer) {
+    public CollectVisViewport(T collection, IVisualizer<T> visualizer) {
         this.collection = collection;
         this.visualizer = visualizer;
 
