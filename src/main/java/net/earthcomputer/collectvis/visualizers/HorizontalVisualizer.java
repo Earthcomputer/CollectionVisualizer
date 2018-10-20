@@ -1,27 +1,26 @@
 package net.earthcomputer.collectvis.visualizers;
 
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class VerticalVisualizer<T> implements IVisualizer<Iterable<T>> {
+public class HorizontalVisualizer<T> implements IVisualizer<Iterable<T>> {
 
-    public static final float ALIGN_LEFT = 0f;
-    public static final float ALIGN_CENTER = 0.5f;
-    public static final float ALIGN_RIGHT = 1f;
+    public static final float ALIGN_TOP = 0f;
+    public static final float ALIGN_MIDDLE = 0.5f;
+    public static final float ALIGN_BOTTOM = 1f;
 
     private Supplier<? extends IVisualizer<? super T>> visualizerCreator;
     private float alignment;
     private List<IVisualizer<? super T>> visualizers = new ArrayList<>();
     private Dimension size;
 
-    public VerticalVisualizer(Supplier<? extends IVisualizer<? super T>> visualizerCreator) {
-        this(ALIGN_CENTER, visualizerCreator);
+    public HorizontalVisualizer(Supplier<? extends IVisualizer<? super T>> visualizerCreator) {
+        this(ALIGN_MIDDLE, visualizerCreator);
     }
 
-    public VerticalVisualizer(float alignment, Supplier<? extends IVisualizer<? super T>> visualizerCreator) {
+    public HorizontalVisualizer(float alignment, Supplier<? extends IVisualizer<? super T>> visualizerCreator) {
         this.alignment = alignment;
         this.visualizerCreator = visualizerCreator;
     }
@@ -42,8 +41,8 @@ public class VerticalVisualizer<T> implements IVisualizer<Iterable<T>> {
         }
         visualizers.subList(index, visualizers.size()).clear();
 
-        size = new Dimension(visualizers.stream().mapToInt(vis -> vis.getSize().width).max().orElse(0),
-                visualizers.stream().mapToInt(vis -> vis.getSize().height).sum());
+        size = new Dimension(visualizers.stream().mapToInt(vis -> vis.getSize().width).sum(),
+                visualizers.stream().mapToInt(vis -> vis.getSize().height).max().orElse(0));
     }
 
     @Override
@@ -54,8 +53,9 @@ public class VerticalVisualizer<T> implements IVisualizer<Iterable<T>> {
     @Override
     public void draw(Graphics2D g, int x, int y) {
         for (IVisualizer<? super T> visualizer : visualizers) {
-            visualizer.draw(g, x + (int) ((size.width - visualizer.getSize().width) * alignment), y);
-            y += visualizer.getSize().height;
+            visualizer.draw(g, x, y + (int) ((size.height - visualizer.getSize().height) * alignment));
+            x += visualizer.getSize().width;
         }
     }
+
 }
