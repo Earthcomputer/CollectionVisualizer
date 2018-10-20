@@ -2,7 +2,7 @@ package net.earthcomputer.collectvis.visualizers;
 
 import java.awt.*;
 
-public class ToStringVisualizer<T> implements IVisualizer<T> {
+public class ToStringVisualizer<T> extends Visualizer<T> {
 
     private String text;
     private Dimension size;
@@ -15,12 +15,12 @@ public class ToStringVisualizer<T> implements IVisualizer<T> {
     }
 
     @Override
-    public Dimension getSize() {
+    public Dimension getContentSize() {
         return size;
     }
 
     @Override
-    public void draw(Graphics2D g, int x, int y) {
+    public void drawContent(Graphics2D g, int x, int y) {
         g.drawString(text, x, y + g.getFontMetrics().getAscent());
     }
 }

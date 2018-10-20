@@ -6,22 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class VerticalVisualizer<T> implements IVisualizer<Iterable<T>> {
+public class VerticalVisualizer<T> extends Visualizer<Iterable<T>> {
 
     public static final float ALIGN_LEFT = 0f;
     public static final float ALIGN_CENTER = 0.5f;
     public static final float ALIGN_RIGHT = 1f;
 
-    private Supplier<? extends IVisualizer<? super T>> visualizerCreator;
+    private Supplier<? extends Visualizer<? super T>> visualizerCreator;
     private float alignment;
-    private List<IVisualizer<? super T>> visualizers = new ArrayList<>();
+    private List<Visualizer<? super T>> visualizers = new ArrayList<>();
     private Dimension size;
 
-    public VerticalVisualizer(Supplier<? extends IVisualizer<? super T>> visualizerCreator) {
+    public VerticalVisualizer(Supplier<? extends Visualizer<? super T>> visualizerCreator) {
         this(ALIGN_CENTER, visualizerCreator);
     }
 
-    public VerticalVisualizer(float alignment, Supplier<? extends IVisualizer<? super T>> visualizerCreator) {
+    public VerticalVisualizer(float alignment, Supplier<? extends Visualizer<? super T>> visualizerCreator) {
         this.alignment = alignment;
         this.visualizerCreator = visualizerCreator;
     }
@@ -30,7 +30,7 @@ public class VerticalVisualizer<T> implements IVisualizer<Iterable<T>> {
     public void layout(Iterable<T> collection, Graphics2D g) {
         int index = 0;
         for (T elem : collection) {
-            IVisualizer<? super T> vis;
+            Visualizer<? super T> vis;
             if (index >= visualizers.size()) {
                 vis = visualizerCreator.get();
                 visualizers.add(vis);
@@ -42,20 +42,20 @@ public class VerticalVisualizer<T> implements IVisualizer<Iterable<T>> {
         }
         visualizers.subList(index, visualizers.size()).clear();
 
-        size = new Dimension(visualizers.stream().mapToInt(vis -> vis.getSize().width).max().orElse(0),
-                visualizers.stream().mapToInt(vis -> vis.getSize().height).sum());
+        size = new Dimension(visualizers.stream().mapToInt(vis -> vis.getTotalSize().width).max().orElse(0),
+                visualizers.stream().mapToInt(vis -> vis.getTotalSize().height).sum());
     }
 
     @Override
-    public Dimension getSize() {
+    public Dimension getContentSize() {
         return size;
     }
 
     @Override
-    public void draw(Graphics2D g, int x, int y) {
-        for (IVisualizer<? super T> visualizer : visualizers) {
-            visualizer.draw(g, x + (int) ((size.width - visualizer.getSize().width) * alignment), y);
-            y += visualizer.getSize().height;
+    public void drawContent(Graphics2D g, int x, int y) {
+        for (Visualizer<? super T> visualizer : visualizers) {
+            visualizer.draw(g, x + (int) ((size.width - visualizer.getTotalSize().width) * alignment), y);
+            y += visualizer.getTotalSize().height;
         }
     }
 }

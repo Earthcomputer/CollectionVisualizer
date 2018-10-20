@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-public class FieldsVisualizer<T> implements IVisualizer<T> {
+public class FieldsVisualizer<T> extends Visualizer<T> {
 
     private Field[] visualizedFields;
     private String[] displayedLines;
@@ -47,12 +47,12 @@ public class FieldsVisualizer<T> implements IVisualizer<T> {
     }
 
     @Override
-    public Dimension getSize() {
+    public Dimension getContentSize() {
         return size;
     }
 
     @Override
-    public void draw(Graphics2D g, int x, int y) {
+    public void drawContent(Graphics2D g, int x, int y) {
         int lineHeight = g.getFontMetrics().getAscent() + g.getFontMetrics().getDescent();
         y += g.getFontMetrics().getAscent();
 

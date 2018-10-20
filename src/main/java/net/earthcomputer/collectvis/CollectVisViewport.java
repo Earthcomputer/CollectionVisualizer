@@ -1,6 +1,6 @@
 package net.earthcomputer.collectvis;
 
-import net.earthcomputer.collectvis.visualizers.IVisualizer;
+import net.earthcomputer.collectvis.visualizers.Visualizer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +12,9 @@ public class CollectVisViewport<T> extends JComponent implements Scrollable, Mou
     private static final int MAX_UNIT_INCREMENT = 1;
 
     private T collection;
-    private IVisualizer<? super T> visualizer;
+    private Visualizer<? super T> visualizer;
 
-    public CollectVisViewport(T collection, IVisualizer<? super T> visualizer) {
+    public CollectVisViewport(T collection, Visualizer<? super T> visualizer) {
         this.collection = collection;
         this.visualizer = visualizer;
 
@@ -29,7 +29,7 @@ public class CollectVisViewport<T> extends JComponent implements Scrollable, Mou
 
         visualizer.draw(g2, 0, 0);
 
-        Dimension size = visualizer.getSize();
+        Dimension size = visualizer.getTotalSize();
         if (!size.equals(getPreferredSize())) {
             setPreferredSize(size);
             revalidate();
