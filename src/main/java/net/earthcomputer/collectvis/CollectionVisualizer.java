@@ -34,6 +34,10 @@ public class CollectionVisualizer {
         visualize(map, new TreeMapVisualizer<>(addStandardBorder(visualizerCreator)));
     }
 
+    public static <E> void visualizeHashSet(HashSet<E> set, Supplier<? extends Visualizer<? super E>> visualizerCreator) {
+        visualize(set, new HashSetVisualizer<>(addStandardBorder(visualizerCreator)));
+    }
+
     public static <K, V> void visualizeHashMap(HashMap<K, V> map, Supplier<? extends Visualizer<? super Map.Entry<K, V>>> visualizerCreator) {
         visualize(map, new HashMapVisualizer<>(addStandardBorder(visualizerCreator)));
     }
