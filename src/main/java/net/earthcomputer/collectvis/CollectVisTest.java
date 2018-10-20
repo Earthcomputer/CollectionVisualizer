@@ -7,10 +7,14 @@ import java.util.*;
 public class CollectVisTest {
 
     public static void main(String[] args) {
-        List<Integer> set = new ArrayList<>();
+        HashMap<Integer, Integer> set = new HashMap<>();
         for (int i = 0; i < 100; i++)
-            set.add(i);
-        CollectionVisualizer.visualizeList(set, ToStringVisualizer::new);
+            set.put(i, null);
+        for (int i = 0; i < 10; i++)
+            set.put(1024 * i, null);
+        set.put(1025, null);
+        set.remove(2);
+        CollectionVisualizer.visualizeHashMap(set, ToStringVisualizer<Map.Entry<Integer, Integer>>::new);
     }
 
 }

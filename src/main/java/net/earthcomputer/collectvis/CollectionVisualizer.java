@@ -7,10 +7,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.function.Supplier;
 
 public class CollectionVisualizer {
@@ -34,6 +32,10 @@ public class CollectionVisualizer {
 
     public static <K, V> void visualizeTreeMap(TreeMap<K, V> map, Supplier<? extends Visualizer<? super Map.Entry<K, V>>> visualizerCreator) {
         visualize(map, new TreeMapVisualizer<>(addStandardBorder(visualizerCreator)));
+    }
+
+    public static <K, V> void visualizeHashMap(HashMap<K, V> map, Supplier<? extends Visualizer<? super Map.Entry<K, V>>> visualizerCreator) {
+        visualize(map, new HashMapVisualizer<>(addStandardBorder(visualizerCreator)));
     }
 
     public static <T> void visualize(T collection, Visualizer<? super T> visualizer) {
