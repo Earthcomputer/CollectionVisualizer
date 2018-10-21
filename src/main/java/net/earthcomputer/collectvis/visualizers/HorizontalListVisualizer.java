@@ -17,17 +17,13 @@ public class HorizontalListVisualizer<E> extends HorizontalVisualizer<E> {
     @Override
     public void layout(Iterable<E> collection, Graphics2D g) {
         super.layout(collection, g);
-        int size;
-        if (collection instanceof Collection) {
-            size = ((Collection<?>) collection).size();
-        } else {
-            size = 0;
-            for (E e : collection)
-                size++;
-        }
 
         FontMetrics fontMetrics = g.getFontMetrics();
-        this.size = new Dimension(super.getContentSize().width, super.getContentSize().height + fontMetrics.getAscent() + fontMetrics.getDescent() + 1);
+        int width = 0;
+        for (int i = 0; i < visualizers.size(); i++) {
+            width += Math.max(Math.max(visualizers.get(i).getTotalSize().width, fontMetrics.stringWidth(i + ":") + 5), 32);
+        }
+        this.size = new Dimension(width, super.getContentSize().height + fontMetrics.getAscent() + fontMetrics.getDescent() + 1);
     }
 
     @Override
@@ -40,12 +36,11 @@ public class HorizontalListVisualizer<E> extends HorizontalVisualizer<E> {
         FontMetrics fontMetrics = g.getFontMetrics();
         int lineHeight = fontMetrics.getAscent() + fontMetrics.getDescent();
 
-        super.drawContent(g, x, y + lineHeight + 1);
-
         int index = 0;
         for (Visualizer<? super E> vis : visualizers) {
-            int width = vis.getTotalSize().width;
+            int width = Math.max(Math.max(vis.getTotalSize().width, fontMetrics.stringWidth(index + ":") + 5), 32);
             g.drawString(index + ":", x + width / 2 - fontMetrics.stringWidth(index + ":") / 2, y + fontMetrics.getAscent());
+            vis.draw(g, x + width / 2 - vis.getTotalSize().width / 2, y + lineHeight + 1);
             x += width;
             index++;
         }
